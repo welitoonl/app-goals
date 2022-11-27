@@ -1,18 +1,9 @@
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { GoalDTO } from '@storage/goals/goalStorageDTO';
 import { Text, Pressable, Stack, Icon } from 'native-base';
 
-import { ITask } from './Task';
-
-export interface IGoal {
-  id: number;
-  title: string;
-  description: string;
-  tasks: ITask[];
-  date: string;
-}
-
 type Props = {
-  goal: IGoal;
+  goal: GoalDTO;
 };
 
 export function Goal({ goal }: Props) {

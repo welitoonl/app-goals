@@ -3,7 +3,15 @@ import { useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Fab, Icon, Menu, Text } from 'native-base';
 
-export function MenuFab() {
+import { IGoal } from './Goal';
+import { ITask } from './Task';
+
+type MenuFabProps = {
+  addGoal: (goal: IGoal) => void;
+  addTask: (task: ITask) => void;
+};
+
+export function MenuFab({ addGoal, addTask }: MenuFabProps) {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
 
   return (
@@ -25,13 +33,13 @@ export function MenuFab() {
           />
         );
       }}>
-      <Menu.Item onPress={() => navigation.navigate('NewGoal')}>
+      <Menu.Item onPress={() => navigation.navigate('NewGoal', { addGoal })}>
         <Icon color="dark.shade" as={MaterialIcons} name="emoji-symbols" size="xs" />
         <Text color="dark.shade" fontSize="xs">
           Nova Meta
         </Text>
       </Menu.Item>
-      <Menu.Item onPress={() => navigation.navigate('NewTask')}>
+      <Menu.Item onPress={() => navigation.navigate('NewTask', { addTask })}>
         <Icon color="dark.shade" as={SimpleLineIcons} name="list" size="xs" />
         <Text color="dark.shade" fontSize="xs">
           Nova Tarefa

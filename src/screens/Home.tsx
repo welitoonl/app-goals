@@ -2,6 +2,7 @@ import { IGoal } from '@components/Goal';
 import { Goals } from '@components/Goals';
 import { HomeHeader } from '@components/HomeHeader';
 import { MenuFab } from '@components/Menu';
+import { ITask } from '@components/Task';
 import { Tasks } from '@components/Tasks';
 import { VStack } from 'native-base';
 import React from 'react';
@@ -130,32 +131,32 @@ export function Home() {
   ];
   const name = 'João';
   const [goalList, setGoal] = React.useState(goals);
-  const tasks = goalList.map((goal) => goal.tasks).flat();
-  const handleCheckTask = (id: number) => {
-    const newGoalList = goalList.map((goal) => {
-      const newTasks = goal.tasks.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            completed: !task.completed,
-          };
-        }
-        return task;
-      });
-      return {
-        ...goal,
-        tasks: newTasks,
-      };
+  const [taskList, setTask] = React.useState(goalList.map((goal) => goal.tasks).flat());
+
+  const handleAddGoal = (goal: IGoal) => {
+    setGoal([...goalList, goal]);
+  };
+
+  const handleAddTask = (task: ITask) => {
+    setTask([...taskList, task]);
+  };
+
+  const handleCompleteTask = (id: number) => {
+    const newTaskList = taskList.map((task) => {
+      if (task.id === id) {
+        task.completed = !task.completed;
+      }
+      return task;
     });
-    setGoal(newGoalList);
+    setTask(newTaskList);
   };
 
   return (
     <VStack flex={1} bg="dark.shade">
       <HomeHeader name={name} />
       <Goals goals={goals} />
-      <Tasks tasks={tasks} checkTask={handleCheckTask} />
-      <MenuFab />
+      <Tasks tasks={taskList} checkTask={handleCompleteTask} />
+      <MenuFab addGoal={handleAddGoal} addTask={handleAddTask} />
     </VStack>
   );
 }

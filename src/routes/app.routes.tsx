@@ -1,3 +1,4 @@
+import { IGoal } from '@components/Goal';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -8,8 +9,8 @@ import { NewTask } from '@screens/NewTask';
 
 type Routes = {
   Home: undefined;
-  NewGoal: undefined;
-  NewTask: undefined;
+  NewGoal: { addGoal: (goal: IGoal) => void };
+  NewTask: { addTask: (task: IGoal) => void };
 };
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<Routes>;
@@ -29,11 +30,11 @@ export function AppRoutes() {
           headerShown: false,
           presentation: 'modal',
           contentStyle: {
-            top: '60%',
+            top: '55%',
             backgroundColor: 'transparent',
           },
         }}>
-        <Screen name="NewTask" component={NewTask} />
+        <Screen name="NewTask">{(props) => <NewTask {...props} />}</Screen>
       </Group>
     </Navigator>
   );

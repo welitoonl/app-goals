@@ -1,17 +1,10 @@
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { TaskDTO } from '@storage/tasks/goalStorageDTO';
 import { Text, Pressable, Stack, Icon, Checkbox } from 'native-base';
 import { useEffect, useState } from 'react';
 
-export interface ITask {
-  id: number;
-  title: string;
-  date: string;
-  hour: string;
-  completed: boolean;
-}
-
 type Props = {
-  task: ITask;
+  task: TaskDTO;
   checkTask: (id: number) => void;
 };
 
