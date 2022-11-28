@@ -1,6 +1,5 @@
 import { useGoals } from '@hooks/useGoals';
 import { useTasks } from '@hooks/useTasks';
-import { useUser } from '@hooks/useUser';
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -9,7 +8,6 @@ import { Home } from '@screens/Home';
 import { Login } from '@screens/Login';
 import { NewGoal } from '@screens/NewGoal';
 import { NewTask } from '@screens/NewTask';
-import { GoalDTO } from '@storage/goals/goalStorageDTO';
 import { TaskDTO } from '@storage/tasks/taskStorageDTO';
 import { useState } from 'react';
 

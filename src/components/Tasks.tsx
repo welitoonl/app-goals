@@ -41,7 +41,7 @@ export function Tasks({ tasks, update, remove, fetch, selectTask }: Props) {
   };
 
   return (
-    <VStack flex={1} m={6} space={2} maxH="450">
+    <VStack flex={1} m={6} space={2} maxH="550">
       <HStack justifyContent="space-between" alignItems="center">
         <Heading color="light.shade" size="xs">
           Tarefas
