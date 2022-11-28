@@ -81,6 +81,8 @@ export function DatePicker({ start, end, allDay, onChange }: Props) {
         onConfirm={onChangedDate}
         onCancel={() => setDatePickerVisibility(false)}
         locale="pt_BR"
+        cancelTextIOS="Cancelar"
+        confirmTextIOS="Confirmar"
         buttonTextColorIOS="#000"
         display="inline"
       />

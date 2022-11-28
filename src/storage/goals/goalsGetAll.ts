@@ -8,7 +8,6 @@ export async function goalsGetAll() {
     const storage = await AsyncStorage.getItem(GOALS_COLLECTION);
 
     const goals: GoalDTO[] = storage ? JSON.parse(storage) : [];
-    console.log('goals', goals);
     return goals;
   } catch (error) {
     throw error;

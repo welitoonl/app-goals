@@ -24,8 +24,15 @@ export type NewTaskProps = {
   createTask: (tasks: TaskDTO[]) => Promise<void>;
   updateTask: (task: TaskDTO) => Promise<void>;
   setSelectedTask: (task: TaskDTO) => void;
+  setEmptySelectedTask: () => void;
 };
-export function NewTask({ task, createTask, updateTask, setSelectedTask }: NewTaskProps) {
+export function NewTask({
+  task,
+  createTask,
+  updateTask,
+  setSelectedTask,
+  setEmptySelectedTask,
+}: NewTaskProps) {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
   const [newTask, setTask] = useState<TaskDTO>({
     id: task?.id ?? uuid.v4().toString(),
@@ -60,6 +67,7 @@ export function NewTask({ task, createTask, updateTask, setSelectedTask }: NewTa
     } else {
       await createTask([newTask]);
     }
+    setEmptySelectedTask();
     navigation.navigate('Home');
   };
 
@@ -82,6 +90,7 @@ export function NewTask({ task, createTask, updateTask, setSelectedTask }: NewTa
           accessibilityLabel="Nome da tarefa (obrigatório)"
           color="light.shade"
           onChangeText={handleOnChange}
+          value={newTask.title}
           variant="underlined"
           _invalid={{
             borderColor: 'red.500',

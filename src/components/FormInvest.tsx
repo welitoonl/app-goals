@@ -146,7 +146,7 @@ export function FormInvest({ goal, onChange, addTasks }: Props) {
     const newTask = {
       id: uuid.v4().toString(),
       idGoal: goal.id,
-      title: goal.title.toLowerCase(),
+      title: goal.title,
       start: date,
       end: date,
       allDay: true,
@@ -276,6 +276,8 @@ export function FormInvest({ goal, onChange, addTasks }: Props) {
         onConfirm={(date) => handleChangeDate(date, datePickerRules.dateField)}
         onCancel={() => setDatePickerVisibility(false)}
         locale="pt_BR"
+        cancelTextIOS="Cancelar"
+        confirmTextIOS="Confirmar"
         buttonTextColorIOS="#000"
         display="inline"
       />

@@ -73,7 +73,6 @@ export function NewGoal({ createGoal, createTask }: NewTaskProps) {
   };
 
   const handleOnSave = async () => {
-    console.log('tasksdogoal', tasks);
     await createGoal(goal);
     await createTask(tasks);
     navigation.navigate('Home');
@@ -105,6 +104,7 @@ export function NewGoal({ createGoal, createTask }: NewTaskProps) {
                 goal={goal}
                 tasks={tasks}
                 updateTask={handleUpdateTask}
+                removeTask={handleRemoveTask}
                 save={handleOnSave}
               />
             )}

@@ -11,26 +11,22 @@ export type HomeProps = {
   name: string;
   goals: GoalDTO[];
   tasks: TaskDTO[];
-  updateGoal: (goal: GoalDTO) => Promise<void>;
   removeGoal: (goal: string) => Promise<void>;
   updateTask: (task: TaskDTO) => Promise<void>;
   removeTask: (task: string) => Promise<void>;
   fetchTasks: (title?: string) => Promise<void>;
   fetchGoals: () => Promise<void>;
-  setSelectedGoal: (goal: GoalDTO) => void;
   setSelectedTask: (task: TaskDTO) => void;
 };
 export function Home({
   goals,
   tasks,
   name,
-  updateGoal,
   updateTask,
   removeGoal,
   removeTask,
   fetchTasks,
   fetchGoals,
-  setSelectedGoal,
   setSelectedTask,
 }: HomeProps) {
   useEffect(() => {
@@ -38,10 +34,15 @@ export function Home({
     fetchTasks();
   }, []);
 
+  const handleRemoveGoal = async (id: string) => {
+    await removeGoal(id);
+    await fetchTasks();
+  };
+
   return (
     <VStack flex={1} bg="dark.shade">
       <HomeHeader name={name} />
-      <Goals goals={goals} tasks={tasks} update={updateGoal} remove={removeGoal} />
+      <Goals goals={goals} tasks={tasks} remove={handleRemoveGoal} />
       <Tasks
         tasks={tasks}
         update={updateTask}

@@ -10,10 +10,11 @@ type Props = {
   goal: GoalDTO;
   tasks: TaskDTO[];
   updateTask: (task: TaskDTO) => void;
+  removeTask: (id: string) => void;
   save: () => void;
 };
 
-export function FormValidate({ goal, tasks, updateTask, save }: Props) {
+export function FormValidate({ tasks, removeTask, save }: Props) {
   const [tasksList, setTasksList] = useState(tasks);
   const handleSearchTasks = (text: string) => {
     const tasksFiltered = tasks.filter((item) => {
@@ -26,12 +27,11 @@ export function FormValidate({ goal, tasks, updateTask, save }: Props) {
 
   return (
     <VStack space={4} p={4} h="full" w="full" bg="dark.100" overflow="auto">
-      <VStack>
+      <VStack space={4}>
         <Heading color="light.shade">Uma nova aquisição! Que legal!</Heading>
-        <Text color="light.500">
+        <Text color="light.500" fontSize="xs">
           Certo, logo abaixo você vai encontrar todas as tarefas que você precisa fazer para
-          conseguir realizar essa aquisição. Você pode adicionar novas tarefas, editar as que já
-          foram criadas.
+          conseguir realizar essa aquisição.
         </Text>
       </VStack>
       <VStack space={4} p={4} flex={1} rounded="lg" maxH={500} bg="dark.shade">
@@ -59,7 +59,7 @@ export function FormValidate({ goal, tasks, updateTask, save }: Props) {
           rounded="lg"
           keyExtractor={(item) => String(item.id)}
           ItemSeparatorComponent={() => <Divider mx={9} bg="light.400" />}
-          renderItem={({ item }) => <TaskSimple task={item} />}
+          renderItem={({ item }) => <TaskSimple removeTask={removeTask} task={item} />}
           showsVerticalScrollIndicator={false}
         />
       </VStack>

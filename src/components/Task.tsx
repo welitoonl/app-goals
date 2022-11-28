@@ -2,17 +2,7 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { TaskDTO } from '@storage/tasks/taskStorageDTO';
-import {
-  Text,
-  Icon,
-  Checkbox,
-  HStack,
-  Box,
-  VStack,
-  IconButton,
-  AlertDialog,
-  Button,
-} from 'native-base';
+import { Text, Icon, Checkbox, HStack, Box, VStack, IconButton } from 'native-base';
 import React, { useEffect, useState } from 'react';
 
 type Props = {
@@ -24,9 +14,6 @@ type Props = {
 
 export function Task({ task, checkTask, selected, remove }: Props) {
   const navigation = useNavigation<AppNavigatorRoutesProps>();
-  const [isOpen, setIsOpen] = React.useState(false);
-  const onClose = () => setIsOpen(false);
-  const cancelRef = React.useRef(null);
   const startDate = new Date(task.start);
   const endDate = new Date(task.end);
   const [dateNow, setDateNowFormated] = useState(new Date());
@@ -65,7 +52,6 @@ export function Task({ task, checkTask, selected, remove }: Props) {
 
   const handleRemove = () => {
     remove(task.id);
-    onClose();
   };
 
   return (
@@ -84,6 +70,7 @@ export function Task({ task, checkTask, selected, remove }: Props) {
             <Text
               color={task.completed ? 'light.accent' : 'light.shade'}
               fontSize="xs"
+              flex={1}
               onPress={handleSelected}
               strikeThrough={task.completed}>
               {task.title}
@@ -105,32 +92,15 @@ export function Task({ task, checkTask, selected, remove }: Props) {
             </HStack>
           </VStack>
         </HStack>
-        <IconButton
-          size="xs"
-          variant="unstyled"
-          icon={<Icon size="xs" color="red.300" name="trash" as={SimpleLineIcons} />}
-          onPress={() => setIsOpen(!isOpen)}
-        />
+        {!task.idGoal && (
+          <IconButton
+            size="xs"
+            variant="unstyled"
+            icon={<Icon size="xs" color="red.300" name="trash" as={SimpleLineIcons} />}
+            onPress={() => handleRemove()}
+          />
+        )}
       </HStack>
-      <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
-        <AlertDialog.Content>
-          <AlertDialog.CloseButton />
-          <AlertDialog.Header>Deletar tarefa</AlertDialog.Header>
-          <AlertDialog.Body>
-            Você está deletando uma tarefa que está vinculada a uma meta. Deseja continuar?
-          </AlertDialog.Body>
-          <AlertDialog.Footer>
-            <Button.Group space={2}>
-              <Button variant="unstyled" colorScheme="coolGray" onPress={onClose} ref={cancelRef}>
-                Cancelar
-              </Button>
-              <Button colorScheme="danger" variant="ghost" onPress={handleRemove}>
-                Deletar
-              </Button>
-            </Button.Group>
-          </AlertDialog.Footer>
-        </AlertDialog.Content>
-      </AlertDialog>
     </Box>
   );
 }
