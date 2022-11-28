@@ -1,16 +1,18 @@
+import { GoalDTO } from '@storage/goals/goalStorageDTO';
+import { TaskDTO } from '@storage/tasks/taskStorageDTO';
 import { Divider, FlatList, Heading, VStack } from 'native-base';
 
 import { EmptyStateGoal } from './EmptyStateGoal';
-import { Goal, IGoal } from './Goal';
+import { Goal } from './Goal';
 
 type Props = {
-  goals: IGoal[];
+  goals: GoalDTO[];
+  tasks: TaskDTO[];
+  update: (goal: GoalDTO) => void;
+  remove: (id: string) => void;
 };
 
-export function Goals({ goals }: Props) {
-  goals.sort((a, b) => {
-    return new Date(a.date).getTime() - new Date(b.date).getTime();
-  });
+export function Goals({ goals, tasks, update, remove }: Props) {
   return (
     <VStack mx={6} mt={6} space={2}>
       <Heading color="light.shade" size="xs">
@@ -23,7 +25,9 @@ export function Goals({ goals }: Props) {
         keyExtractor={(item) => String(item.id)}
         ListEmptyComponent={<EmptyStateGoal />}
         ItemSeparatorComponent={() => <Divider mx="3" thickness="2" bg="dark.shade" />}
-        renderItem={({ item }) => <Goal goal={item} />}
+        renderItem={({ item }) => (
+          <Goal goal={item} tasks={tasks.filter((task) => task.idGoal === item.id)} />
+        )}
         showsVerticalScrollIndicator={false}
         maxH={120}
       />

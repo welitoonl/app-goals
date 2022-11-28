@@ -6,7 +6,7 @@ type Props = {
 
 export function HomeHeader({ name }: Props) {
   return (
-    <HStack bg="dark.100" pt="10%" pb={4} px={4} alignItems="center" roundedBottom="56">
+    <HStack bg="dark.100" pt="15%" pb={4} px={4} alignItems="center">
       <VStack flex={1} alignItems="center">
         <Heading color="gray.100" fontSize="md" fontFamily="heading">
           Olá, {name}

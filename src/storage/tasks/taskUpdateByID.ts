@@ -10,7 +10,7 @@ export async function taskUpdateById(taskUpdated: TaskDTO) {
     const tasks = storedTasks.filter((task) => task.id !== taskUpdated.id);
 
     const newStorage = JSON.stringify([...tasks, taskUpdated]);
-    await AsyncStorage.setItem(TASKS_COLLECTION, JSON.stringify(newStorage));
+    await AsyncStorage.setItem(TASKS_COLLECTION, newStorage);
   } catch (error) {
     throw error;
   }

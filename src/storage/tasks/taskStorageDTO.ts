@@ -2,7 +2,8 @@ export interface TaskDTO {
   id: string;
   idGoal?: string;
   title: string;
-  date: string;
-  hour: string;
+  start: Date;
+  end: Date;
+  allDay: boolean;
   completed: boolean;
 }

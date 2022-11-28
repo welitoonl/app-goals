@@ -6,8 +6,10 @@ import { TaskDTO } from './taskStorageDTO';
 export async function tasksGetAll() {
   try {
     const storage = await AsyncStorage.getItem(TASKS_COLLECTION);
-
-    const tasks: TaskDTO[] = storage ? JSON.parse(storage) : [];
+    if (!storage) {
+      return [];
+    }
+    const tasks: TaskDTO[] = JSON.parse(storage);
 
     return tasks;
   } catch (error) {

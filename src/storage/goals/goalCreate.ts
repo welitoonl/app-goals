@@ -4,7 +4,7 @@ import { GOALS_COLLECTION } from '@storage/storageConfig';
 import { GoalDTO } from './goalStorageDTO';
 import { goalsGetAll } from './goalsGetAll';
 
-export async function goalsCreate(newGoal: GoalDTO) {
+export async function goalCreate(newGoal: GoalDTO) {
   try {
     const storedGoals = await goalsGetAll();
 
